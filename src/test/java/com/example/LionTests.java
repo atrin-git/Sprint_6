@@ -1,7 +1,9 @@
 package com.example;
 
 import org.hamcrest.MatcherAssert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -14,11 +16,16 @@ import static org.hamcrest.CoreMatchers.equalTo;
 @RunWith(MockitoJUnitRunner.class)
 public class LionTests {
 
+    @Rule
+    public ExpectedException expectedEx = ExpectedException.none();
     @Mock
     Feline feline;
 
-    @Test(expected = Exception.class)
+    @Test
     public void createLionThrowsException() throws Exception {
+        expectedEx.expect(Exception.class);
+        expectedEx.expectMessage("Используйте допустимые значения пола животного - самец или самка");
+
         new Lion(feline, "Не определено");
     }
 
